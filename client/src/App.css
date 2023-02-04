@@ -1,0 +1,43 @@
+.App{
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6vh;
+}
+
+header{
+  display: flex;
+  justify-content: center;
+  user-select: none;
+}
+
+header h1{
+  font-weight: 100;
+  position: relative;
+}
+
+header h1::after{
+  position: absolute;
+  content: '';
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  width: 0;
+  border: 1px black solid;
+  transition:width .2s, opacity .6s;
+}
+
+h1:hover::after{
+  width: 100%;
+  opacity: 1;
+  right:unset;
+  left: 0;
+  transition: .4s all;
+}
+
+main{
+  height: 100%;
+  display: grid;
+  gap: 2rem;
+}

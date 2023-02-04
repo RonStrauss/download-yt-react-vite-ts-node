@@ -1,0 +1,27 @@
+:root{
+  --main-color: #ff3737
+}
+
+
+*,*::after,*::before{
+  margin: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html,body,#root{
+  min-height: 100vh;
+  min-width: 320px;
+}
+
+.flex{
+  display: flex;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
