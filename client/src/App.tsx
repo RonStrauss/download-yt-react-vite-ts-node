@@ -53,7 +53,7 @@ function App() {
 	useEffect(() => {
 		setDebounceID(setTimeout(() => {
 			setDebounce(input);
-		}, 300))
+		}, 500))
 		return () => {
 			clearTimeout(debounceID)
 		}
@@ -79,14 +79,7 @@ function App() {
 					</Masonry>
 					: <h3 style={{ textAlign: 'center' }}>Search some videos to download!</h3>}
 			</main>
-			<div className="backdrop">
-				<div className="modal">
-					<h3>Modal</h3>
-					<p>Modal content</p>
-
-					<button>Close</button>
-				</div>
-			</div>
+		{/* <dialog></dialog> */}
 		</div>
 	);
 }
