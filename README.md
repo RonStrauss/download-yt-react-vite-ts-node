@@ -16,8 +16,8 @@ Type in the name of the video you would like to download, click the image, and w
 ### todo-list
 - [x] Integrate websocket with alerts
 
-- [] Make the mp3s listenable from the react front, or allow to download from it.
+- [ ] Make the mp3s listenable from the react front, or allow to download from it.
 
-- [] Pagination.
+- [ ] Pagination.
 
-- [] Give an indication if the mp3 was already downloaded in the past. Could be done by indexing the downloaded songs and keeping in a dictionary. Returning a boolean when doing the input search.
+- [ ] Give an indication if the mp3 was already downloaded in the past. Could be done by indexing the downloaded songs and keeping in a dictionary. Returning a boolean when doing the input search.
