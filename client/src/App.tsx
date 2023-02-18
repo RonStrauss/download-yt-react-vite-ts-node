@@ -106,7 +106,6 @@ function App() {
 				<h1>Youtube Mp3 Downloader</h1>
 			</header>
 			<main>
-				<button onClick={() => triggerToast()}>Toasty!</button>
 				<div className="flex">
 					<Input {...{ input, setInput }} />
 				</div>
