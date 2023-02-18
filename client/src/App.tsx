@@ -67,7 +67,7 @@ function App() {
 		});
 
 		socket.on('download-finished-io', (name)=>{
-			triggerToast('download finished for ' + name)
+			triggerToast('Download finished for: ' + name + ' !')
 		})
 
 		return () => {

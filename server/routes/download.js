@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 	downloadMP3(id, name);
 
-	res.send({ msg: 'video downloading, check server for info' });
+	res.send({ msg: 'Video downloading!' });
 });
 
 module.exports = {router};
