@@ -1,20 +1,20 @@
-import React from 'react'
-
 import './Thumbnail.css'
 import { API } from './Static';
+import { TypeOptions } from 'react-toastify/dist/types';
 
 export type ThumbnailProps = {
 	  data: VideoModule.Item;
+	  toast: (msg?:string,method?: TypeOptions) => void
 }
 
-export const Thumbnail = ({data}:ThumbnailProps) => {
+export const Thumbnail = ({data,toast}:ThumbnailProps) => {
 
 	const downloadMP3 = async (id:string) =>{
 		const res = await fetch(`${API}/download?id=${id}`)
 		const data = await res.json();
 
 		if (res.ok){
-			alert(data.msg)
+			toast(data.msg, 'info')
 		}
 	}
 

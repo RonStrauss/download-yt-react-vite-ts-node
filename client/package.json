@@ -4,14 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "npm run dev",
+    "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "install": "^0.13.0",
+    "npm": "^9.5.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-masonry-css": "^1.0.16",
+    "react-toastify": "^9.1.1",
+    "socket.io-client": "^4.6.0",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
