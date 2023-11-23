@@ -28,11 +28,13 @@ function downloadMP3(id, name) {
 
 	if (!name) {
 		ytdl.getBasicInfo(id).then((info) => {
-			const videoTitle = info.player_response.videoDetails.title;
+			const videoTitle = info.player_response.videoDetails.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
 
 			handleDownloadAndWrite(stream, videoTitle, start);
 
 			writeVideoDetailJson(id, videoTitle, info.player_response.videoDetails);
+		}).catch((err) => {
+			console.log(err);
 		});
 		return;
 	}
