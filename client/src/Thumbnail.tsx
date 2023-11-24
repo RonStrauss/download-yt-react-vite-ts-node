@@ -19,9 +19,11 @@ export const Thumbnail = ({data,toast}:ThumbnailProps) => {
 	}
 
   return (
-	 <div className='Thumbnail'>
+	 <div className={'Thumbnail ' + (data.downloaded ? 'Thumbnail-Downloaded' : '') }>
 		<span className='Thumbnail-Title'>{data.title}</span>
-		<img src={data ? data.thumbnail.thumbnails[0].url : undefined} onClick={()=>downloadMP3(data.id)} alt={data.title || ""} />
+		{/* className={data.downloaded ? 'downloaded' : ''} */}
+		{/* {data.downloaded && <span className='Thumbnail-Downloaded'>Downloaded</span>} */}
+		<img src={data ? data.thumbnail.thumbnails[0].url : undefined}  onClick={()=>downloadMP3(data.id)} alt={data.title || ""} />
 	 </div>
   )
 }

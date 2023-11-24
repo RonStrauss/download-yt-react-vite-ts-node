@@ -63,6 +63,7 @@ declare module VideoModule {
 		 shortBylineText: ShortBylineText;
 		 length: Length;
 		 isLive: boolean;
+		 downloaded: boolean;
 	}
 
 	export interface ConfigInfo {

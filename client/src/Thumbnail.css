@@ -4,9 +4,7 @@
 	filter: blur(1px);
 	cursor: pointer;
 	position: relative;
-	/* border-radius: 2px; */
-	transition: filter 0.3s,transform .3s, box-shadow .1s;
-	/* transition: all 0.3s; */
+	transition: filter 0.3s, transform .3s, box-shadow .1s;
 	max-width: 100vw;
 }
 
@@ -16,7 +14,7 @@
 	z-index: 2;
 }
 
-.Thumbnail-Title{
+.Thumbnail-Title {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -32,12 +30,20 @@
 	opacity: 1;
 }
 
-.Thumbnail img{
+.Thumbnail img {
 	border-radius: 2px;
 	overflow: hidden;
 }
 
-.Thumbnail:focus,.Thumbnail:active{
+.Thumbnail-Downloaded::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	box-shadow: inset 0 0 19px 6px #00ff00aa;
+}
+
+.Thumbnail:focus,
+.Thumbnail:active {
 	transform: scale(1.05);
-	box-shadow:  0 0 4px 4px black;
+	box-shadow: 0 0 4px 4px black;
 }
