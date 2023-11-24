@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { API } from './Static';
 
 import './App.css';
@@ -8,15 +8,31 @@ import Masonry from 'react-masonry-css';
 import './Masonry.css';
 import socketIOClient from 'socket.io-client';
 import { Online } from './Online';
-import {toast, ToastContainer} from 'react-toastify'
-import { ToastOptions, TypeOptions} from 'react-toastify/dist/types/index'
+import { toast, ToastContainer } from 'react-toastify';
+import { ToastOptions, TypeOptions } from 'react-toastify/dist/types/index';
 import 'react-toastify/dist/ReactToastify.css';
+import { MP3sStore } from './Types/Store';
 
 const breakpointColumnsObj = {
 	default: 4,
 	1480: 3,
 	1200: 2,
 	820: 1,
+};
+
+const triggerToast = (msg?: string, method?: TypeOptions) => {
+	const options: ToastOptions = {
+		position: 'top-right',
+		autoClose: 5000,
+		hideProgressBar: true,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		theme: 'light',
+		type: method ? method : 'success',
+	};
+
+	toast(msg ? msg : 'Toasty!', options);
 };
 
 function App() {
@@ -29,22 +45,9 @@ function App() {
 	const [debounceID, setDebounceID] = useState(0);
 
 	const [online, setOnline] = useState(false);
-	
-	const triggerToast = (msg?:string,method?: TypeOptions) => {
 
-		const options:ToastOptions = {
-			position: "top-right",
-			autoClose: 5000,
-			hideProgressBar: true,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			theme: "light",
-			type: method ? method : 'success'
-			}
+	const [mp3sDownloadedStore, setMp3sDownloadedStore] = useState<MP3sStore>({ downloaded: {}, downloading: {} });
 
-		toast( msg ? msg : 'Toasty!', options)
-	}
 
 	const searchKeyword = async (keyword: string, signal: AbortSignal) => {
 		try {
@@ -53,7 +56,13 @@ function App() {
 			if (!data.items.length) {
 				throw new Error('No videos found!');
 			}
-			setVideos(data.items.filter((vd) => vd.type === 'video'));
+			const videos = data.items.filter((vd) => vd.type === 'video');
+			const videosAlreadyDownloaded = new Set(videos.filter((vd) => vd.downloaded).map((vd) => vd.id));
+			setVideos(videos);
+			setMp3sDownloadedStore({
+				...mp3sDownloadedStore,
+				downloaded: { ...mp3sDownloadedStore.downloaded, ...Object.fromEntries([...videosAlreadyDownloaded].map((id) => [id, true])) },
+			});
 			console.log({ data });
 		} catch (error) {
 			console.log(error);
@@ -66,9 +75,15 @@ function App() {
 			setOnline(true);
 		});
 
-		socket.on('download-finished-io', (name)=>{
-			triggerToast('Download finished for: ' + name + ' !')
-		})
+		socket.on('download-finished-io', (json: string) => {
+			const { name, id } = JSON.parse(json);
+			setMp3sDownloadedStore({
+				...mp3sDownloadedStore,
+				downloading: { ...mp3sDownloadedStore.downloading, [id]: false },
+				downloaded: { ...mp3sDownloadedStore.downloaded, [id]: true },
+			});
+			triggerToast('Download finished for: ' + name + ' !');
+		});
 
 		return () => {
 			socket.disconnect();
@@ -91,28 +106,27 @@ function App() {
 		setDebounceID(
 			setTimeout(() => {
 				setDebounce(input);
-			}, 500)
+			}, 500),
 		);
 		return () => {
 			clearTimeout(debounceID);
 		};
 	}, [input]);
 
-
 	return (
-		<div className="App">
+		<div className='App'>
 			<Online online={online} />
 			<header>
 				<h1>Youtube Mp3 Downloader</h1>
 			</header>
 			<main>
-				<div className="flex">
+				<div className='flex'>
 					<Input {...{ input, setInput }} />
 				</div>
 				{videos.length ? (
-					<Masonry breakpointCols={breakpointColumnsObj} className="my-masonry-grid" columnClassName="my-masonry-grid_column">
+					<Masonry breakpointCols={breakpointColumnsObj} className='my-masonry-grid' columnClassName='my-masonry-grid_column'>
 						{videos.map((vd) => (
-							<Thumbnail data={vd} key={vd.id} toast={triggerToast} />
+							<Thumbnail data={vd} key={vd.id} {...{ mp3sDownloadedStore, setMp3sDownloadedStore }} toast={triggerToast} />
 						))}
 					</Masonry>
 				) : (

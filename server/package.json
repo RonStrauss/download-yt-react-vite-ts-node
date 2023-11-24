@@ -5,7 +5,10 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",
-		"dev": "nodemon"
+		"dev": "nodemon",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,6 +23,7 @@
 		"ytdl-core": "^4.11.2"
 	},
 	"devDependencies": {
+		"jest": "^29.7.0",
 		"nodemon": "^2.0.20"
 	},
 	"nodemonConfig": {

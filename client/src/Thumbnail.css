@@ -24,6 +24,8 @@
 	opacity: 0;
 	padding: 5px;
 	transition: all 0.3s;
+	text-align: center;
+	text-wrap: balance;
 }
 
 .Thumbnail:hover .Thumbnail-Title {
@@ -40,6 +42,13 @@
 	position: absolute;
 	inset: 0;
 	box-shadow: inset 0 0 19px 6px #00ff00aa;
+}
+
+.Thumbnail-Downloading::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	box-shadow: inset 0 0 19px 6px rgba(64, 64, 255, 0.582);
 }
 
 .Thumbnail:focus,
