@@ -4,6 +4,8 @@ youtubeSearchApi = require('youtube-search-api');
 const fs = require('fs');
 const path = require('path');
 const downloadedDir = path.join(__dirname, '..','downloaded');
+fs.mkdirSync(path.join(downloadedDir, 'mp3s'), { recursive: true });
+fs.mkdirSync(path.join(downloadedDir, 'jsons'), { recursive: true });	
 const downloadedMp3sDir = fs.readdirSync(path.join(downloadedDir, 'mp3s'));
 const downloadedJsonsDir = fs.readdirSync(path.join(downloadedDir, 'jsons'));
 const jsonSet = new Set(downloadedJsonsDir.map((file) => file.split(' - ')[0]));
